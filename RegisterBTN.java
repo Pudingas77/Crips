@@ -108,6 +108,8 @@ public class RegisterBTN {
 					txtName.setText(null);
 					txtLastName.setText(null);
 					txtPassword.setText(null);
+					Login_System.main();
+					frame.dispose();
 				} else {
 					txtBadgeID.setText(null);
 					txtPassword.setText(null);

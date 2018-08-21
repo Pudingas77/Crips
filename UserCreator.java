@@ -81,8 +81,6 @@ public class UserCreator {
 				} else {
 
 					if (ExistsInDB(SelectAllFromOffices, "ID", Office)) {
-						
-
 						if (myStat.executeUpdate(
 								String.format(CreateUserQuery, ID, Office, Name, LastName, Password)) == 1) {
 							JOptionPane.showMessageDialog(null,

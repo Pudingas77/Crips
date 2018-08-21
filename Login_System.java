@@ -23,7 +23,7 @@ public class Login_System {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -94,7 +94,7 @@ public class Login_System {
 
 		JButton btnReset = new JButton("Reset");
 		btnReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent gg) {
+			public void actionPerformed(ActionEvent e) {
 				txtBadgeID.setText(null);
 				txtPassword.setText(null);
 
@@ -104,6 +104,12 @@ public class Login_System {
 		frame.getContentPane().add(btnReset);
 
 		JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				
+			}
+		});
 		btnExit.setBounds(373, 215, 97, 25);
 		frame.getContentPane().add(btnExit);
 
@@ -112,9 +118,6 @@ public class Login_System {
 
 			public void actionPerformed(ActionEvent arg0) {
 				frame.dispose();
-				// Aprender a fechar para esta abrir
-				// Se arrastares esta ela mexe-se e a de tras fica
-				
 				RegisterBTN.main();
 			}
 		});
