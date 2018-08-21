@@ -49,8 +49,6 @@ public class UserLogin {
 
 						return false;
 					}
-					
-					
 
 				}
 
@@ -60,7 +58,7 @@ public class UserLogin {
 				if (myRs2.getString("Office").equals(office)) {
 					JOptionPane.showMessageDialog(null,
 							(myRs2.getString("Name") + " " + (myRs2.getString("LastName"))));
-					return true;
+
 				}
 			}
 

@@ -78,15 +78,8 @@ public class Login_System {
 			public void actionPerformed(ActionEvent e) {
 				String BadgeID = txtBadgeID.getText();
 				String Password = txtPassword.getText();
-				if (UserLogin.UserLogin(BadgeID, Password) == true) {
-					txtBadgeID.setText(null);
-					txtPassword.setText(null);
-				} else {
-					JOptionPane.showMessageDialog(null, "Invalid Login Details", "Login Error",
-							JOptionPane.ERROR_MESSAGE);
-
-				}
-
+				UserLogin.UserLogin(BadgeID, Password);
+				
 			}
 		});
 		btnLogin.setBounds(12, 215, 97, 25);
@@ -107,7 +100,7 @@ public class Login_System {
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				
+
 			}
 		});
 		btnExit.setBounds(373, 215, 97, 25);
