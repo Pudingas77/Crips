@@ -43,10 +43,8 @@ public class UserCreator {
 
 	}
 
-	
-
 	public static void DeleteUser() {
-		//SO PARA ADMINS
+		// SO PARA ADMINS
 		String ID = userInput("Enter existing user Badge ID: ");
 
 		try {
@@ -56,7 +54,7 @@ public class UserCreator {
 
 			if (myStat.executeUpdate(String.format(DeleteUserQuery, ID)) == 1) {
 				println("Successfuly Deleted User with Badge ID " + "(" + ID + ")");
-				
+
 			} else {
 				println(String.format("Couldnt find user with Badge ID(%s)", ID));
 				DeleteUser();
@@ -67,25 +65,28 @@ public class UserCreator {
 		}
 	}
 
-	public static boolean CreateUser(String ID, String Office, String Name, String Password) {
+	public static boolean CreateUser(String ID, String Office, String Name, String LastName, String Password) {
 		try {
 			Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
 			Statement myStat = myConn.createStatement();
 			ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
 
 			while (myRs.next()) {
-				
+
 				if (ExistsInDB(SelectAllFromTest, "BadgeID", ID) || ID.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Badge ID already exists or is empty! Please try a new Badge ID instead");
+					JOptionPane.showMessageDialog(null,
+							"Badge ID already exists or is empty! Please try a new Badge ID instead");
 					return false;
 
 				} else {
 
 					if (ExistsInDB(SelectAllFromOffices, "ID", Office)) {
+						
 
-						if (myStat
-								.executeUpdate(String.format(CreateUserQuery, ID, Office, Name, " ", Password)) == 1) {
-							JOptionPane.showMessageDialog(null, "Successfuly Created User '" + Name + "' (" + ID + ")");
+						if (myStat.executeUpdate(
+								String.format(CreateUserQuery, ID, Office, Name, LastName, Password)) == 1) {
+							JOptionPane.showMessageDialog(null,
+									"Successfuly Created User '" + Name + LastName + "' (" + ID + ")");
 							return true;
 						}
 

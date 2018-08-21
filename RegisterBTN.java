@@ -18,6 +18,7 @@ public class RegisterBTN {
 	private JTextField txtBadgeID;
 	private JTextField txtOfficeID;
 	private JTextField txtName;
+	private JTextField txtLastName;
 	private JTextField txtPassword;
 
 	/**
@@ -48,12 +49,12 @@ public class RegisterBTN {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(200, 200, 500, 300);
+		frame.setBounds(200, 200, 403, 322);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JLabel lblRegister = new JLabel("Register");
-		lblRegister.setBounds(225, 25, 55, 15);
+		lblRegister.setBounds(147, 29, 55, 15);
 		frame.getContentPane().add(lblRegister);
 
 		JLabel lblBadgeID = new JLabel("BadgeID");
@@ -68,9 +69,9 @@ public class RegisterBTN {
 		lblOfficeid.setBounds(44, 99, 56, 16);
 		frame.getContentPane().add(lblOfficeid);
 
-		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(44, 168, 56, 16);
-		frame.getContentPane().add(lblPassword);
+		JLabel lblLastName = new JLabel("LastName");
+		lblLastName.setBounds(44, 168, 56, 16);
+		frame.getContentPane().add(lblLastName);
 
 		txtBadgeID = new JTextField();
 		txtBadgeID.setBounds(179, 58, 116, 22);
@@ -87,33 +88,45 @@ public class RegisterBTN {
 		frame.getContentPane().add(txtName);
 		txtName.setColumns(10);
 
-		txtPassword = new JTextField();
-		txtPassword.setBounds(179, 163, 116, 22);
-		frame.getContentPane().add(txtPassword);
-		txtPassword.setColumns(10);
-
-
+		txtLastName = new JTextField();
+		txtLastName.setBounds(179, 163, 116, 22);
+		frame.getContentPane().add(txtLastName);
+		txtLastName.setColumns(10);
 
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String ID = txtBadgeID.getText();
 				String Name = txtName.getText();
-				String Office = txtOfficeID.getText();
-				String Password = txtPassword.getText();
+				String LastName = txtLastName.getText();
+				String OfficeID = txtOfficeID.getText();
+				String Password = txtLastName.getText();
 
-				if (UserCreator.CreateUser(ID, Office, Name, Password)) {
+				if (UserCreator.CreateUser(ID, OfficeID, Name, LastName, Password)) {
 					txtBadgeID.setText(null);
+					txtOfficeID.setText(null);
+					txtName.setText(null);
+					txtLastName.setText(null);
 					txtPassword.setText(null);
 				} else {
 					txtBadgeID.setText(null);
 					txtPassword.setText(null);
-					
+					txtOfficeID.setText(null);
+
 				}
 			}
 		});
-		btnRegister.setBounds(204, 215, 97, 25);
+
+		txtPassword = new JTextField();
+		txtPassword.setBounds(179, 198, 116, 22);
+		frame.getContentPane().add(txtPassword);
+		txtPassword.setColumns(10);
+		btnRegister.setBounds(126, 237, 97, 25);
 		frame.getContentPane().add(btnRegister);
+
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setBounds(44, 203, 56, 16);
+		frame.getContentPane().add(lblPassword);
 
 	}
 }

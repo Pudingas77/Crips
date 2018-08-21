@@ -111,6 +111,7 @@ public class Login_System {
 		btnRegister.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
 				// Aprender a fechar para esta abrir
 				// Se arrastares esta ela mexe-se e a de tras fica
 				
