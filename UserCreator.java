@@ -74,28 +74,27 @@ public class UserCreator {
 			ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
 
 			while (myRs.next()) {
-				
-				if (ExistsInDB(SelectAllFromTest, "BadgeID", ID)) {
-					JOptionPane.showMessageDialog(null, "Badge ID already exists! Please try a new Badge ID instead");
+
+				if (ID == "" || ExistsInDB(SelectAllFromTest, "BadgeID", ID)) {
+					JOptionPane.showMessageDialog(null, "Badge ID already exists or is null! Please try a new Badge ID instead");
 					return false;
 
 				} else {
-					
-					
+
 					if (ExistsInDB(SelectAllFromOffices, "ID", Office)) {
-						
+
 						if (myStat
 								.executeUpdate(String.format(CreateUserQuery, ID, Office, Name, " ", Password)) == 1) {
 							JOptionPane.showMessageDialog(null, "Successfuly Created User '" + Name + "' (" + ID + ")");
-														return true;
+							return true;
 						}
-						
+
 						JOptionPane.showMessageDialog(null, "Failed to create new user! Please retry");
-						
+
 						return false;
 					} else {
 						JOptionPane.showMessageDialog(null, "Office ID doesnt exist!");
-						
+
 						return false;
 					}
 
@@ -103,7 +102,8 @@ public class UserCreator {
 			}
 		} catch (Exception exc) {
 			exc.printStackTrace();
-		}return false;
+		}
+		return false;
 	}
 
 	public static String userInput(String statement) {
