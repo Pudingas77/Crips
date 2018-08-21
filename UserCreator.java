@@ -74,9 +74,9 @@ public class UserCreator {
 			ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
 
 			while (myRs.next()) {
-
-				if (ExistsInDB(SelectAllFromTest, "BadgeID", ID) || ID == null) {
-					JOptionPane.showMessageDialog(null, "Badge ID already exists or is null! Please try a new Badge ID instead");
+				
+				if (ExistsInDB(SelectAllFromTest, "BadgeID", ID) || ID.isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Badge ID already exists or is empty! Please try a new Badge ID instead");
 					return false;
 
 				} else {

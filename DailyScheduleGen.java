@@ -37,7 +37,10 @@ public class DailyScheduleGen {
 		//String[] Name = userInput("Enter new user First and Last name: ").split(" ");
 		//String ScheduleName = userInput("Enter schedule name: ");
 		Calendar tc; 
-		
+		OfficeImport();
+		userInput("By order of the Jarl stop right there!");
+	}
+	public static void BackupFunc() {
 		String days = userInput(String.format("Please insert %s(%s) Holydays:", MonthName(0), 0));
 		String[] holydays = days.split(",");
 		
@@ -90,13 +93,33 @@ public class DailyScheduleGen {
 			println("Please type the days in a sequencial manner. Ex(1,5,10,30)");
 		}
 		
-		String Halt = userInput("By order of the Jarl stop right there!");
+		userInput("By order of the Jarl stop right there!");
 		//println(String.format("This months last day is %s", MonthLastDay(i)));
         
         //System.out.println("Today            : " + sdf.format(today));  
         //System.out.println("Last Day of Month: " + ); 
 		
+	}
+	
+	public static void OfficeImport() {
+		// THIS FUNCTION DOESNT CHECK EXISTANCE
+		String Offices = userInput("Insert Single Office or Office List (using ',' separator, ex: 'Office 1,Office 2,Office 3'");
+		String[] OfficeList = Offices.split(",");
 		
+		try {
+			myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+			myStat = myConn.createStatement();
+			
+			for (int i = 0; i < OfficeList.length; i++)
+			{
+				if (myStat.executeUpdate(String.format("INSERT INTO offices VALUES (default, '%s');", OfficeList[i])) == 1) {
+					println(String.format("Successfuly Imported '%s'", OfficeList[i]));
+				}	
+			}
+
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
 	}
 	public static int[] ConvertStringList(String[] StringList) {
 		int[] List = new int[StringList.length];
