@@ -40,18 +40,13 @@ public class UserCreator {
 	}
 
 	public static void main(String[] args) {
-		// Selector();
+
 	}
 
-	/*
-	 * public static void Selector() { String var =
-	 * userInput("Do you wish to 'create' or 'delete' user?");
-	 * 
-	 * if (var.contains("create")) { CreateUser(); } else if
-	 * (var.contains("delete")) { DeleteUser(); } else { Selector(); } }
-	 */
+	
 
 	public static void DeleteUser() {
+		//SO PARA ADMINS
 		String ID = userInput("Enter existing user Badge ID: ");
 
 		try {
@@ -61,7 +56,7 @@ public class UserCreator {
 
 			if (myStat.executeUpdate(String.format(DeleteUserQuery, ID)) == 1) {
 				println("Successfuly Deleted User with Badge ID " + "(" + ID + ")");
-				// Selector();
+				
 			} else {
 				println(String.format("Couldnt find user with Badge ID(%s)", ID));
 				DeleteUser();
@@ -72,59 +67,43 @@ public class UserCreator {
 		}
 	}
 
-	public static void CreateUser(String ID, String Office, String Name, String Password) {
+	public static boolean CreateUser(String ID, String Office, String Name, String Password) {
 		try {
 			Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
 			Statement myStat = myConn.createStatement();
 			ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
 
 			while (myRs.next()) {
-				// String ID = userInput("Enter new user BadgeID: ");
+				
 				if (ExistsInDB(SelectAllFromTest, "BadgeID", ID)) {
-					println("Badge ID already exists! Please try a new Badge ID instead");
-					return;
-					// CreateUser();
+					JOptionPane.showMessageDialog(null, "Badge ID already exists! Please try a new Badge ID instead");
+					return false;
 
 				} else {
 
-					// String Office = userInput("Enter your Office ID: ");
+					
 					if (ExistsInDB(SelectAllFromOffices, "ID", Office)) {
-						// String[] Name = userInput("Enter new user First and
-						// Last name: ").split(" ");
-						// String Password = userInput("Enter new user Password:
-						// ");
-
-						/*
-						 * if (Name.length > 1) { if
-						 * (myStat.executeUpdate(String.format(CreateUserQuery,
-						 * ID, Office, Name[0], Name[Name.length - 1],
-						 * Password)) == 1) {
-						 * JOptionPane.showMessageDialog(null,
-						 * "Successfuly Created User '" + Name[0] + " " +
-						 * Name[Name.length - 1] + "' (" + ID + ")"); //
-						 * Selector(); } } else {
-						 */
+						
 						if (myStat
 								.executeUpdate(String.format(CreateUserQuery, ID, Office, Name, " ", Password)) == 1) {
 							JOptionPane.showMessageDialog(null, "Successfuly Created User '" + Name + "' (" + ID + ")");
-							// Selector();
-							return;
+														return true;
 						}
-						// }
+						
 						JOptionPane.showMessageDialog(null, "Failed to create new user! Please retry");
-						// CreateUser();
-						return;
+						
+						return false;
 					} else {
 						JOptionPane.showMessageDialog(null, "Office ID doesnt exist!");
-						// CreateUser();
-						return;
+						
+						return false;
 					}
 
 				}
 			}
 		} catch (Exception exc) {
 			exc.printStackTrace();
-		}
+		}return false;
 	}
 
 	public static String userInput(String statement) {

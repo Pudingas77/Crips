@@ -108,11 +108,12 @@ public class RegisterBTN {
 				String Office = txtOfficeID.getText();
 				String Password = txtPassword.getText();
 
-				UserCreator.CreateUser(ID, Office, Name, Password);
-				txtBadgeID.setText(null);
-				txtName.setText(null);
-				txtOfficeID.setText(null);
-				txtPassword.setText(null);
+				if (UserCreator.CreateUser(ID, Office, Name, Password) == true) {
+					txtBadgeID.setText(null);
+					txtPassword.setText(null);
+				} else {
+					RegisterBTN.main();
+				}
 			}
 		});
 		btnRegister.setBounds(204, 215, 97, 25);

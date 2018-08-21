@@ -1,6 +1,7 @@
 package Crips;
 
 import java.awt.EventQueue;
+import java.awt.Window;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,6 +24,7 @@ public class Login_System {
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -81,9 +83,13 @@ public class Login_System {
 				if (UserLogin.UserLogin(BadgeID, Password) == true) {
 					txtBadgeID.setText(null);
 					txtPassword.setText(null);
+					frame.dispose();
 				} else {
+					txtBadgeID.setText(null);
+					txtPassword.setText(null);
 					JOptionPane.showMessageDialog(null, "Invalid Login Details", "Login Error",
 							JOptionPane.ERROR_MESSAGE);
+					
 
 				}
 
@@ -111,9 +117,9 @@ public class Login_System {
 		btnRegister.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
-				// Aprender a fechar para esta abrir
-				// Se arrastares esta ela mexe-se e a de tras fica
-
+				
+				
+				frame.dispose();
 				RegisterBTN.main();
 			}
 		});
