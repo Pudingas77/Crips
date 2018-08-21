@@ -92,13 +92,7 @@ public class RegisterBTN {
 		frame.getContentPane().add(txtPassword);
 		txtPassword.setColumns(10);
 
-		JCheckBox BadgeIDCheck = new JCheckBox("");
-		BadgeIDCheck.setBounds(326, 58, 116, 25);
-		frame.getContentPane().add(BadgeIDCheck);
 
-		JCheckBox OfficeIDCheck = new JCheckBox("");
-		OfficeIDCheck.setBounds(326, 93, 113, 25);
-		frame.getContentPane().add(OfficeIDCheck);
 
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
@@ -108,11 +102,13 @@ public class RegisterBTN {
 				String Office = txtOfficeID.getText();
 				String Password = txtPassword.getText();
 
-				if (UserCreator.CreateUser(ID, Office, Name, Password) == true) {
+				if (UserCreator.CreateUser(ID, Office, Name, Password)) {
 					txtBadgeID.setText(null);
 					txtPassword.setText(null);
 				} else {
-					RegisterBTN.main();
+					txtBadgeID.setText(null);
+					txtPassword.setText(null);
+					
 				}
 			}
 		});
