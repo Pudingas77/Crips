@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;  
 import java.util.Date;
 import java.util.Scanner;
-
+ // És o rei ja derreti o cerebro
 public class DailyScheduleGen {
 	static String dbc = "jdbc:mysql://localhost:3306/transactions";
 	static String dbc_user = "root";
