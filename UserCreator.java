@@ -16,7 +16,7 @@ public class UserCreator {
 	static String DeleteUserQuery = "DELETE FROM test WHERE  BadgeID='%s';";
 	static String SelectAllFromTest = "SELECT * from test";
 	static String SelectAllFromOffices = "SELECT * from offices";
-
+	// THIS IS RENATO
 	public static Boolean ExistsInDB(String Query, String DataBaseField, String Field) {
 		try {
 			Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
