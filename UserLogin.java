@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class UserLogin {
-	
+
 	// New Push 09:34
-	
+
 	static String dbc = "jdbc:mysql://localhost:3306/transactions";
 	static String dbc_user = "root";
 	static String dbc_password = "";
@@ -20,7 +20,7 @@ public class UserLogin {
 	static Scanner scanner = new Scanner(System.in);
 	static boolean BadgeIDcorrect;
 
-	public static void main(String BadgeID, String Password) {
+	public static boolean UserLogin(String BadgeID, String Password) {
 		/*
 		 * String Username1 = userInput("Enter your Username: "); String
 		 * Password = userInput("Enter your Password: ");
@@ -34,6 +34,7 @@ public class UserLogin {
 			ResultSet myRs = myStat.executeQuery("select * from test");
 			while (myRs.next()) {
 				if ((myRs.getString("BadgeID")).equals(BadgeID)) {
+					BadgeIDcorrect = true;
 					if ((myRs.getString("Passwords")).equals(Password)) {
 						JOptionPane.showMessageDialog(null, "Succefully Logged In");
 						JOptionPane.showMessageDialog(null,
@@ -42,11 +43,11 @@ public class UserLogin {
 						JOptionPane.showMessageDialog(null,
 								"Your working office is: " + office + " Your colleagues are: ");
 
-						BadgeIDcorrect = true;
 					} else {
-						JOptionPane.showMessageDialog(null, "Wrong password please try again");
-						BadgeIDcorrect = true;
-						return;
+						JOptionPane.showMessageDialog(null, "Wrong password please try again", "Login Error",
+								JOptionPane.ERROR_MESSAGE);
+
+						return false;
 					}
 
 				}
@@ -57,16 +58,18 @@ public class UserLogin {
 				if (myRs2.getString("Office").equals(office)) {
 					JOptionPane.showMessageDialog(null,
 							(myRs2.getString("Name") + " " + (myRs2.getString("LastName"))));
+					return true;
 				}
 			}
 
 			if (BadgeIDcorrect = false) {
 				JOptionPane.showMessageDialog(null, "That BadgeID doesn't exist, Please register First");
-				return;
+				return false;
 			}
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
+		return false;
 
 	}
 

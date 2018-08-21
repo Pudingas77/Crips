@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JFormattedTextField;
@@ -16,7 +17,7 @@ import javax.swing.JSlider;
 public class Login_System {
 
 	private JFrame frame;
-	private JTextField txtUsername;
+	private JTextField txtBadgeID;
 	private JPasswordField txtPassword;
 
 	/**
@@ -55,18 +56,18 @@ public class Login_System {
 		lblNewLabel.setBounds(225, 25, 55, 15);
 		frame.getContentPane().add(lblNewLabel);
 
-		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(44, 108, 79, 16);
-		frame.getContentPane().add(lblUsername);
+		JLabel lblBadgeID = new JLabel("BadgeID");
+		lblBadgeID.setBounds(44, 108, 79, 16);
+		frame.getContentPane().add(lblBadgeID);
 
 		JLabel lblNewLabel_2 = new JLabel("Password");
 		lblNewLabel_2.setBounds(44, 153, 56, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
-		txtUsername = new JTextField();
-		txtUsername.setBounds(220, 105, 116, 22);
-		frame.getContentPane().add(txtUsername);
-		txtUsername.setColumns(10);
+		txtBadgeID = new JTextField();
+		txtBadgeID.setBounds(220, 105, 116, 22);
+		frame.getContentPane().add(txtBadgeID);
+		txtBadgeID.setColumns(10);
 
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(220, 150, 116, 22);
@@ -75,9 +76,17 @@ public class Login_System {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String Username = txtUsername.getText();
+				String BadgeID = txtBadgeID.getText();
 				String Password = txtPassword.getText();
-				UserLogin.main(Username, Password);
+				if (UserLogin.UserLogin(BadgeID, Password) == true) {
+					txtBadgeID.setText(null);
+					txtPassword.setText(null);
+				} else {
+					JOptionPane.showMessageDialog(null, "Invalid Login Details", "Login Error",
+							JOptionPane.ERROR_MESSAGE);
+
+				}
+
 			}
 		});
 		btnLogin.setBounds(12, 215, 97, 25);
@@ -94,6 +103,8 @@ public class Login_System {
 		JButton btnBack = new JButton("Register");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				RegisterBTN.main();
 			}
 		});
 		btnBack.setBounds(264, 215, 97, 25);
