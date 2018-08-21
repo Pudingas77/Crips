@@ -75,7 +75,7 @@ public class UserCreator {
 
 			while (myRs.next()) {
 
-				if (ID == "" || ExistsInDB(SelectAllFromTest, "BadgeID", ID)) {
+				if (ExistsInDB(SelectAllFromTest, "BadgeID", ID) || ID == null) {
 					JOptionPane.showMessageDialog(null, "Badge ID already exists or is null! Please try a new Badge ID instead");
 					return false;
 
