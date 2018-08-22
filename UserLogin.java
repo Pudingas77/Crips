@@ -73,7 +73,7 @@ public class UserLogin {
 		}
 	    }
 
-	    if (BadgeIDcorrect = false) {
+	    if (BadgeIDcorrect == false) {
 		JOptionPane.showMessageDialog(null, "That BadgeID doesn't exist, Please register First");
 		return false;
 	    }
