@@ -78,16 +78,17 @@ public class Login_System {
 	    public void actionPerformed(ActionEvent e) {
 		String BadgeID = txtBadgeID.getText();
 		String Password = txtPassword.getText();
-		UserLogin.UserLogin(BadgeID, Password);
-		if (UserLogin.IsAdmin()) {
-		    
-		    JOptionPane.showMessageDialog(null, "Logged has an ADMIN");
-		    AdminWindow.main();
-		    frame.dispose();
-		} else {
-		    EmployeeWindow.main();
-		}
+		if (UserLogin.UserLogin(BadgeID, Password)) {
+		    if (UserLogin.IsAdmin()) {
 
+			JOptionPane.showMessageDialog(null, "Logged has an ADMIN");
+			AdminWindow.main();
+			frame.dispose();
+		    } else {
+			EmployeeWindow.main();
+			frame.dispose();
+		    }
+		}
 	    }
 	});
 	btnLogin.setBounds(12, 215, 97, 25);

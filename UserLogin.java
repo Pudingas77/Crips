@@ -45,13 +45,14 @@ public class UserLogin {
 			JOptionPane.showMessageDialog(null,
 				"Your name is " + myRs.getString("Name") + " " + myRs.getString("LastName"));
 			office = myRs.getString("Office");
+			
 
 			if (!IsAdmin()) {
 			    JOptionPane.showMessageDialog(null,
 				    "Your working office is:  " + office + " Your colleagues are: ");
 
 			}
-
+			return true;
 		    } else {
 			JOptionPane.showMessageDialog(null, "Wrong password please try again", "Login Error",
 				JOptionPane.ERROR_MESSAGE);
