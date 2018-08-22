@@ -87,7 +87,7 @@ public class AdminWindow {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnSeeShiftFrom.setBounds(31, 161, 126, 25);
+		btnSeeShiftFrom.setBounds(37, 161, 126, 25);
 		frame.getContentPane().add(btnSeeShiftFrom);
 
 		JButton btnSeeWorkingHours = new JButton("See Working Hours");
@@ -95,7 +95,7 @@ public class AdminWindow {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSeeWorkingHours.setBounds(31, 199, 144, 25);
+		btnSeeWorkingHours.setBounds(37, 199, 144, 25);
 		frame.getContentPane().add(btnSeeWorkingHours);
 
 		JButton btnSeeWhoWanna = new JButton("See who wanna ask Day off");
@@ -103,16 +103,12 @@ public class AdminWindow {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnSeeWhoWanna.setBounds(181, 51, 191, 25);
+		btnSeeWhoWanna.setBounds(214, 51, 191, 25);
 		frame.getContentPane().add(btnSeeWhoWanna);
-
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(191, 85, 97, 25);
-		frame.getContentPane().add(btnNewButton);
 		
 		txtTypeHereThen = new JTextField();
 		txtTypeHereThen.setText("Type here then click button");
-		txtTypeHereThen.setBounds(204, 200, 168, 22);
+		txtTypeHereThen.setBounds(214, 200, 168, 22);
 		frame.getContentPane().add(txtTypeHereThen);
 		txtTypeHereThen.setColumns(10);
 

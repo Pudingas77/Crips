@@ -20,8 +20,10 @@ public class UserLogin {
     static String AdminOffice = "97";
     static Scanner scanner = new Scanner(System.in);
     static boolean BadgeIDcorrect;
+    static String a;
 
     public static boolean UserLogin(String BadgeID, String Password) {
+	a=BadgeID;
 	/*
 	 * String Username1 = userInput("Enter your Username: "); String
 	 * Password = userInput("Enter your Password: ");
@@ -82,6 +84,10 @@ public class UserLogin {
 
     }
 
+    public static String getA() {
+        return a;
+    }
+
     public static boolean IsAdmin() {
 	if (office.equals(AdminOffice)) {
 	    return true;
@@ -94,6 +100,7 @@ public class UserLogin {
 	System.out.println(statement);
 	return scanner.nextLine();
     }
+    
 
     public static void println(String line) {
 	System.out.println(line);
