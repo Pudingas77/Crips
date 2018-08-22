@@ -63,11 +63,11 @@ public class FunctionsSQL {
 			office = myRs.getString("Office");
 
 			if (!FunctionsSQL.IsAdmin()) {
-			    JOptionPane.showMessageDialog(null,
-				    "Your working office is:  " + office + " Your colleagues are: ");
+			    JOptionPane.showMessageDialog(null, "Your working office is:  " + office);
+			    JOptionPane.showMessageDialog(null, "People in this office are: ");
 
 			}
-			return true;
+
 		    } else {
 			JOptionPane.showMessageDialog(null, "BadgeID or Password Incorrect", "Login Error",
 				JOptionPane.ERROR_MESSAGE);
@@ -79,7 +79,9 @@ public class FunctionsSQL {
 
 	    }
 	    ResultSet myRs2 = myStat.executeQuery("select * from test");
+
 	    while (myRs2.next()) {
+
 		if (myRs2.getString("Office").equals(office)) {
 
 		    JOptionPane.showMessageDialog(null,
@@ -161,6 +163,7 @@ public class FunctionsSQL {
 	return false;
     }
 
+    // Auxiliar Function
     public static boolean IsAdmin() {
 	if (office.equals(Admin.AdminOffice)) {
 	    return true;
