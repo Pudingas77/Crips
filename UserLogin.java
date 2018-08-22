@@ -41,11 +41,11 @@ public class UserLogin {
 						JOptionPane.showMessageDialog(null,
 								"Your name is " + myRs.getString("Name") + " " + myRs.getString("LastName"));
 						office = myRs.getString("Office");
-						if(IsAdmin()){
-							
-						}else{
-						JOptionPane.showMessageDialog(null,
-								"Your working office is:  " + office + " Your colleagues are: ");
+						if (IsAdmin()) {
+
+						} else {
+							JOptionPane.showMessageDialog(null,
+									"Your working office is:  " + office + " Your colleagues are: ");
 						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Wrong password please try again", "Login Error",
@@ -79,10 +79,11 @@ public class UserLogin {
 	}
 
 	public static boolean IsAdmin() {
-		if(office.equals(AdminOffice)){
+		if (office.equals(AdminOffice)) {
 			JOptionPane.showMessageDialog(null, "Logged has an ADMIN");
 			return true;
-		}return false;
+		}
+		return false;
 
 	}
 

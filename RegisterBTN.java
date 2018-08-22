@@ -94,6 +94,7 @@ public class RegisterBTN {
 		txtLastName.setColumns(10);
 
 		JButton btnRegister = new JButton("Register");
+		btnRegister.setBounds(126, 237, 97, 25);
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String ID = txtBadgeID.getText();
@@ -123,7 +124,6 @@ public class RegisterBTN {
 		txtPassword.setBounds(179, 198, 116, 22);
 		frame.getContentPane().add(txtPassword);
 		txtPassword.setColumns(10);
-		btnRegister.setBounds(126, 237, 97, 25);
 		frame.getContentPane().add(btnRegister);
 
 		JLabel lblPassword = new JLabel("Password");

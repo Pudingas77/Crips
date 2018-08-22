@@ -57,7 +57,7 @@ public class UserCreator {
 
 				} else {
 
-					if (ExistsInDB(SelectAllFromOffices, "ID", Office)) {
+					if (ExistsInDB(SelectAllFromOffices, "ID", Office ) || Office.isEmpty()) {
 						if (myStat.executeUpdate(
 								String.format(CreateUserQuery, ID, Office, Name, LastName, Password)) == 1) {
 							JOptionPane.showMessageDialog(null,
@@ -69,7 +69,7 @@ public class UserCreator {
 
 						return false;
 					} else {
-						JOptionPane.showMessageDialog(null, "Office ID doesnt exist!");
+						JOptionPane.showMessageDialog(null, "Office ID doesnt exist! or is empty!");
 
 						return false;
 					}
@@ -81,5 +81,6 @@ public class UserCreator {
 		}
 		return false;
 	}
+	
 
 }
