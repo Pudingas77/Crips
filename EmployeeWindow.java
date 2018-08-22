@@ -12,7 +12,6 @@ import javax.swing.JEditorPane;
 
 public class EmployeeWindow {
 
-    
     private JFrame frame;
 
     /**
@@ -46,28 +45,28 @@ public class EmployeeWindow {
 	frame.setBounds(100, 100, 450, 300);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.getContentPane().setLayout(null);
-	
+
 	JLabel lblEmployee = new JLabel("Employee");
 	lblEmployee.setBounds(189, 13, 56, 16);
 	frame.getContentPane().add(lblEmployee);
-	lblEmployee.setText(UserLogin.getA());
-	
+	lblEmployee.setText(Employee.getBadgeID());
+
 	JButton btnSeeShifts = new JButton("See Shifts");
 	btnSeeShifts.setBounds(12, 54, 97, 25);
 	frame.getContentPane().add(btnSeeShifts);
-	
+
 	JButton btnChangePassword = new JButton("Change Password");
 	btnChangePassword.setBounds(12, 95, 135, 25);
 	frame.getContentPane().add(btnChangePassword);
-	
+
 	JButton btnAskDayOff = new JButton("Ask day Off");
 	btnAskDayOff.setBounds(12, 139, 97, 25);
 	frame.getContentPane().add(btnAskDayOff);
-	
+
 	JButton btnInsertExtrahours = new JButton("Insert ExtraHours");
 	btnInsertExtrahours.setBounds(12, 177, 146, 25);
 	frame.getContentPane().add(btnInsertExtrahours);
-	
+
 	JButton btnVacationRentals = new JButton("Vacation Rentals");
 	btnVacationRentals.setBounds(12, 215, 135, 25);
 	frame.getContentPane().add(btnVacationRentals);

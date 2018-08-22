@@ -103,7 +103,7 @@ public class RegisterBTN {
 		String OfficeID = txtOfficeID.getText();
 		String Password = txtLastName.getText();
 
-		if (UserCreator.CreateUser(ID, OfficeID, Name, LastName, Password)) {
+		if (FunctionsSQL.CreateUser(ID, OfficeID, Name, LastName, Password)) {
 		    txtBadgeID.setText(null);
 		    txtOfficeID.setText(null);
 		    txtName.setText(null);

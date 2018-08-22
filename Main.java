@@ -1,7 +1,8 @@
 package Crips;
 
 import java.util.Scanner;
- //Push 12:07
+
+//Push 13:45
 public class Main {
     static Scanner scanner = new Scanner(System.in);
 
