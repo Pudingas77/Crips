@@ -15,9 +15,8 @@ public class UserCreator {
 
 	// NEW COMMENT!!
 
-	static Scanner scanner = new Scanner(System.in);
 	static String CreateUserQuery = "INSERT INTO test VALUES (default,'%s', '%s','%s','%s','%s')";
-	static String DeleteUserQuery = "DELETE FROM test WHERE  BadgeID='%s';";
+
 	static String SelectAllFromTest = "SELECT * from test";
 	static String SelectAllFromOffices = "SELECT * from offices";
 
@@ -41,28 +40,6 @@ public class UserCreator {
 
 	public static void main(String[] args) {
 
-	}
-
-	public static void DeleteUser() {
-		// SO PARA ADMINS
-		String ID = userInput("Enter existing user Badge ID: ");
-
-		try {
-			Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
-
-			Statement myStat = myConn.createStatement();
-
-			if (myStat.executeUpdate(String.format(DeleteUserQuery, ID)) == 1) {
-				println("Successfuly Deleted User with Badge ID " + "(" + ID + ")");
-
-			} else {
-				println(String.format("Couldnt find user with Badge ID(%s)", ID));
-				DeleteUser();
-			}
-
-		} catch (Exception exc) {
-			exc.printStackTrace();
-		}
 	}
 
 	public static boolean CreateUser(String ID, String Office, String Name, String LastName, String Password) {
@@ -105,12 +82,4 @@ public class UserCreator {
 		return false;
 	}
 
-	public static String userInput(String statement) {
-		System.out.println(statement);
-		return scanner.nextLine();
-	}
-
-	public static void println(String line) {
-		System.out.println(line);
-	}
 }

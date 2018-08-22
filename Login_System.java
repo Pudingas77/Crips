@@ -79,6 +79,7 @@ public class Login_System {
 				String BadgeID = txtBadgeID.getText();
 				String Password = txtPassword.getText();
 				UserLogin.UserLogin(BadgeID, Password);
+				UserLogin.IsAdmin();
 				
 			}
 		});

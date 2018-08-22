@@ -17,6 +17,7 @@ public class UserLogin {
 	static String dbc_user = "root";
 	static String dbc_password = "";
 	static String office = new String();
+	static String AdminOffice = "97";
 	static Scanner scanner = new Scanner(System.in);
 	static boolean BadgeIDcorrect;
 
@@ -40,9 +41,12 @@ public class UserLogin {
 						JOptionPane.showMessageDialog(null,
 								"Your name is " + myRs.getString("Name") + " " + myRs.getString("LastName"));
 						office = myRs.getString("Office");
+						if(IsAdmin()){
+							
+						}else{
 						JOptionPane.showMessageDialog(null,
-								"Your working office is: " + office + " Your colleagues are: ");
-
+								"Your working office is:  " + office + " Your colleagues are: ");
+						}
 					} else {
 						JOptionPane.showMessageDialog(null, "Wrong password please try again", "Login Error",
 								JOptionPane.ERROR_MESSAGE);
@@ -69,7 +73,16 @@ public class UserLogin {
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
+
 		return false;
+
+	}
+
+	public static boolean IsAdmin() {
+		if(office.equals(AdminOffice)){
+			JOptionPane.showMessageDialog(null, "Logged has an ADMIN");
+			return true;
+		}return false;
 
 	}
 
