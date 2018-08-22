@@ -19,7 +19,7 @@ public class UserLogin {
     static String office = new String();
     static String AdminOffice = "97";
     static Scanner scanner = new Scanner(System.in);
-    static boolean BadgeIDcorrect;
+    static boolean BadgeIDcorrect = false;
     static String a;
 
     public static boolean UserLogin(String BadgeID, String Password) {
