@@ -7,8 +7,8 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 public class Admin extends Employee {
-	static String dbc;
-	static String dbc_user;
+	static String dbc = "jdbc:mysql://localhost:3306/transactions";
+	static String dbc_user = "root";
 	static String dbc_password = "";
 	static String DeleteUserQuery = "DELETE FROM test WHERE  BadgeID='%s';";
 	public static void DeleteUser(String BadgeID) {
