@@ -87,7 +87,7 @@ public class Login_System {
 		    } else {
 			EmployeeWindow.main();
 			frame.dispose();
-		    }
+		    } 
 		}
 	    }
 	});
