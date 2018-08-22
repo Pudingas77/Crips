@@ -13,7 +13,7 @@ public class UserLogin {
 
     // New Push 09:34
 
-    static String dbc = "jdbc:mysql://localhost:3306/transactions";
+    static String dbc = Admin.getDbc();
     static String dbc_user = "root";
     static String dbc_password = "";
     static String office = new String();

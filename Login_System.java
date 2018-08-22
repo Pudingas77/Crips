@@ -80,12 +80,12 @@ public class Login_System {
 		String Password = txtPassword.getText();
 		UserLogin.UserLogin(BadgeID, Password);
 		if (UserLogin.IsAdmin()) {
-		    frame.dispose();
+		    
 		    JOptionPane.showMessageDialog(null, "Logged has an ADMIN");
 		    AdminWindow.main();
+		    frame.dispose();
 		} else {
-		   //Employers stuff
-
+		    EmployeeWindow.main();
 		}
 
 	    }
