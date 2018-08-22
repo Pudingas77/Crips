@@ -23,7 +23,7 @@ public class UserLogin {
     static String a;
 
     public static boolean UserLogin(String BadgeID, String Password) {
-	a=BadgeID;
+	a = BadgeID;
 	/*
 	 * String Username1 = userInput("Enter your Username: "); String
 	 * Password = userInput("Enter your Password: ");
@@ -45,7 +45,6 @@ public class UserLogin {
 			JOptionPane.showMessageDialog(null,
 				"Your name is " + myRs.getString("Name") + " " + myRs.getString("LastName"));
 			office = myRs.getString("Office");
-			
 
 			if (!IsAdmin()) {
 			    JOptionPane.showMessageDialog(null,
@@ -54,7 +53,7 @@ public class UserLogin {
 			}
 			return true;
 		    } else {
-			JOptionPane.showMessageDialog(null, "Wrong password please try again", "Login Error",
+			JOptionPane.showMessageDialog(null, "BadgeID or Password Incorrect", "Login Error",
 				JOptionPane.ERROR_MESSAGE);
 
 			return false;
@@ -74,7 +73,8 @@ public class UserLogin {
 	    }
 
 	    if (BadgeIDcorrect == false) {
-		JOptionPane.showMessageDialog(null, "That BadgeID doesn't exist, Please register First");
+		JOptionPane.showMessageDialog(null, "BadgeID or Password Incorrect", "Login Error",
+			JOptionPane.ERROR_MESSAGE);
 		return false;
 	    }
 	} catch (Exception exc) {
@@ -86,7 +86,7 @@ public class UserLogin {
     }
 
     public static String getA() {
-        return a;
+	return a;
     }
 
     public static boolean IsAdmin() {
@@ -101,7 +101,6 @@ public class UserLogin {
 	System.out.println(statement);
 	return scanner.nextLine();
     }
-    
 
     public static void println(String line) {
 	System.out.println(line);
