@@ -17,6 +17,7 @@ public class AdminWindow {
 
     private JFrame frame;
     private JTextField textField;
+    private JTextField tst;
 
     /**
      * Launch the application.
@@ -66,9 +67,19 @@ public class AdminWindow {
 	btnUserOptions.setBounds(12, 49, 116, 25);
 	frame.getContentPane().add(btnUserOptions);
 	
+	
 	JButton btnOfficeOptions = new JButton("Office Options");
+	btnOfficeOptions.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent arg0) {
+		    ;
+		    OfficeOptions.main();
+		    frame.dispose();
+		   
+		}
+	});
 	btnOfficeOptions.setBounds(12, 87, 116, 25);
 	frame.getContentPane().add(btnOfficeOptions);
+	
 
     }
 }

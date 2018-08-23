@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 
 public class Admin{
 	
-	static String AdminOffice = "97";
+	static String AdminOffice = "99";
 
 	
 }

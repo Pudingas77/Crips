@@ -90,7 +90,7 @@ public class Login_System {
 			frame.dispose();
 		    }
 		}
-	    }
+	    } 
 	});
 	btnLogin.setBounds(12, 215, 97, 25);
 	frame.getContentPane().add(btnLogin);

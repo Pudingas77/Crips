@@ -15,6 +15,8 @@ public class FunctionsSQL {
     static String DeleteUserQuery = "DELETE FROM test WHERE  BadgeID ='%s';";
     static String CreateUserQuery = "INSERT INTO test VALUES (default,'%s', '%s','%s','%s','%s')";
     static String SelectAllFromTest = "SELECT * from test";
+    static String RegisterOfficeQuery = "INSERT INTO offices VALUES (default,'%s')";
+    static String DeleteOfficeQuery = "DELETE FROM offices WHERE  Code ='%s';";
 //    static String ModifyUserQuery = "UPDATE `transactions`.`test` SET `%s` = '%s', WHERE `test`.`BadgeID` =`%s`;'";
     static String SelectAllFromOffices = "SELECT * from offices";
     static String office;
@@ -62,12 +64,12 @@ public class FunctionsSQL {
 			JOptionPane.showMessageDialog(null, "Succefully Logged In");
 			JOptionPane.showMessageDialog(null,
 				"Your name is " + myRs.getString("Name") + " " + myRs.getString("LastName"));
-			office = myRs.getString("Office");
+			office = myRs.getString("OfficeID");
 
 			if (!FunctionsSQL.IsAdmin()) {
 			    JOptionPane.showMessageDialog(null, "Your working office is:  " + office);
 			    JOptionPane.showMessageDialog(null, "People in this office are: ");
-			    myConn.close();
+			    
 
 			}
 
@@ -81,28 +83,30 @@ public class FunctionsSQL {
 		}
 
 	    }
-	    ResultSet myRs2 = myStat.executeQuery("select * from test");
+	    
+	   ResultSet myRs2 = myStat.executeQuery("select * from test");
 
 	    while (myRs2.next()) {
 
-		if (myRs2.getString("Office").equals(office)) {
+		if (myRs2.getString("OfficeID").equals(office)) {
 
 		    JOptionPane.showMessageDialog(null,
 			    (myRs2.getString("Name") + " " + (myRs2.getString("LastName"))));
-
+		    
 		}
 	    }
-
+	    
 	    if (BadgeIDcorrect == false) {
 		JOptionPane.showMessageDialog(null, "BadgeID or Password Incorrect", "Login Error",
 			JOptionPane.ERROR_MESSAGE);
 		return false;
 	    }
+	    myConn.close();
 	} catch (Exception exc) {
 	    exc.printStackTrace();
 	}
 	return true;
-
+	
     }
 
     // DATABASE EXIST CHECKER
@@ -191,7 +195,61 @@ public class FunctionsSQL {
 	}
 	return false;
     }
+    // Office Register
+    public static boolean RegisterOffice(String Office) {
+   	try {
+   	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+   	    Statement myStat = myConn.createStatement();
+   	    ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
 
+   	    while (myRs.next()) {
+
+   		if (ExistsInDB(SelectAllFromOffices, "Name Office", Office) || Office.isEmpty()) {
+   		    JOptionPane.showMessageDialog(null,
+   			    "That Office already exists in DB! or is empty");
+   		    return false;
+
+   		} else {
+
+   		   
+   			if (myStat.executeUpdate(String.format(RegisterOfficeQuery, Office)) == 1) {
+   			    JOptionPane.showMessageDialog(null,
+   				    "New Office Created with the name" + Office);
+   			    return true;
+   			}
+
+   			JOptionPane.showMessageDialog(null, "Failed to create new Office! Please retry");
+
+   			return false;
+   		    
+
+   		}
+   	    }
+   	} catch (Exception exc) {
+   	    exc.printStackTrace();
+   	}
+   	return false;
+       }
+    public static void DeleteOffice(String OfficeID) {
+
+   	try {
+   	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+
+   	    Statement myStat = myConn.createStatement();
+   	    System.out.println((String.format(DeleteOfficeQuery, OfficeID)));
+   	    if (myStat.executeUpdate(String.format(DeleteOfficeQuery, OfficeID)) == 1) {
+   		JOptionPane.showMessageDialog(null, "Successfuly Deleted Office with Office ID "  + OfficeID );
+
+   	    } else {
+   		JOptionPane.showMessageDialog(null, String.format("Couldnt find Office with OfficeID(%s)", OfficeID));
+   		return;
+   	    }
+
+   	} catch (Exception exc) {
+   	    exc.printStackTrace();
+   	}
+
+       }
     // Auxiliar Function
     public static boolean IsAdmin() {
 	if (office.equals(Admin.AdminOffice)) {

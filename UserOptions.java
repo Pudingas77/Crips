@@ -91,7 +91,9 @@ public class UserOptions {
 			lblappearsafterclick.setText("Please choose if You want to Modify or Delete a user");
 			break;
 		    case "Delete User":
+			
 			lblappearsafterclick.setText("Enter a BadgeID and press confirm");
+			 JOptionPane.showMessageDialog(null, "you in reg");
 			btnConfirm.addActionListener(new ActionListener() {
 			    public void actionPerformed(ActionEvent e) {
 				String BadgeID = txtBadgeID.getText();
