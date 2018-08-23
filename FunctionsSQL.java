@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
+import net.proteanit.sql.DbUtils;
 
 public class FunctionsSQL {
     static String dbc = "jdbc:mysql://localhost:3306/transactions";
@@ -250,6 +253,25 @@ public class FunctionsSQL {
    	}
 
        }
+    //See stored MessagesVacation!
+    public static void MessageStore(JTable table) {
+
+   	try {
+   	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+
+   	    Statement myStat = myConn.createStatement();
+   	 String query = "SELECT * from `vacationmessagestore`";
+   	 PreparedStatement pst = myConn.prepareStatement(query);
+   	 ResultSet rs = pst.executeQuery();
+   	 table.setModel(DbUtils.resultSetToTableModel(rs));
+   	 
+
+   	} catch (Exception exc) {
+   	    exc.printStackTrace();
+   	}
+
+       }
+    
     // Auxiliar Function
     public static boolean IsAdmin() {
 	if (office.equals(Admin.AdminOffice)) {
