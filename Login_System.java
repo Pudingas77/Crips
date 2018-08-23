@@ -116,15 +116,5 @@ public class Login_System {
 	btnExit.setBounds(373, 215, 97, 25);
 	frame.getContentPane().add(btnExit);
 
-	JButton btnRegister = new JButton("Register");
-	btnRegister.addActionListener(new ActionListener() {
-
-	    public void actionPerformed(ActionEvent arg0) {
-		frame.dispose();
-		RegisterBTN.main();
-	    }
-	});
-	btnRegister.setBounds(264, 215, 97, 25);
-	frame.getContentPane().add(btnRegister);
     }
 }
