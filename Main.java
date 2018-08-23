@@ -8,6 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 	Login_System.main();
+	
     }
 
     public static String userInput(String statement) {

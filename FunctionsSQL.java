@@ -20,6 +20,8 @@ public class FunctionsSQL {
     static String SelectAllFromTest = "SELECT * from test";
     static String RegisterOfficeQuery = "INSERT INTO offices VALUES (default,'%s')";
     static String DeleteOfficeQuery = "DELETE FROM offices WHERE  Code ='%s';";
+    static String VacationRequestQuery = "INSERT INTO vacationmessagestore VALUES ('%s', '%s')";
+    static String SelectAllFromRequest = "Select * from vacationmessagestore";
 //    static String ModifyUserQuery = "UPDATE `transactions`.`test` SET `%s` = '%s', WHERE `test`.`BadgeID` =`%s`;'";
     static String SelectAllFromOffices = "SELECT * from offices";
     static String office;
@@ -271,8 +273,40 @@ public class FunctionsSQL {
    	}
 
        }
-    
-    // Auxiliar Function
+    //Request Vacation BETA!!!! MEGA BETA!
+    public static void RequestVacation(String BadgeID, String Message) {
+	//BadgeID = Employee.getBadgeID();
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
+
+	    while (myRs.next()) {
+
+		if (ExistsInDB(SelectAllFromRequest, "BadgeID", BadgeID) || BadgeID.isEmpty()) {
+		    JOptionPane.showMessageDialog(null,
+			    "You Already Requested Vacation wait for HeadOffice Aprovval");
+		    		return;
+
+		} else {
+
+		    //Insert If To check if vacation days are valid;
+		    if (myStat.executeUpdate(String.format(VacationRequestQuery, BadgeID)) == 1)
+			JOptionPane.showMessageDialog(null, "Request sent wait for HeadOffice for Aprovval"+ "\n" + "Message");
+			    
+			}
+
+			JOptionPane.showMessageDialog(null, "Failed to create new user! Please retry");
+
+		    }
+
+		
+	    
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+    }
+    // Auxiliar Functions
     public static boolean IsAdmin() {
 	if (office.equals(Admin.AdminOffice)) {
 	    return true;
