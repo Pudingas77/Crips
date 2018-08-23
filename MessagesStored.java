@@ -17,7 +17,7 @@ public class MessagesStored {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
+    public static void main() {
 	EventQueue.invokeLater(new Runnable() {
 	    public void run() {
 		try {
@@ -47,7 +47,8 @@ public class MessagesStored {
 	frame.getContentPane().setLayout(null);
 	
 	table = new JTable();
-	table.setBounds(12, 51, 408, 189);
+	table.setEnabled(false);
+	table.setBounds(12, 56, 408, 184);
 	frame.getContentPane().add(table);
 	
 	JButton btnNewButton = new JButton("New button");

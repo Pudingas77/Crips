@@ -64,7 +64,7 @@ public class AdminWindow {
 		}
 	});
 	
-	btnUserOptions.setBounds(12, 49, 116, 25);
+	btnUserOptions.setBounds(12, 49, 135, 25);
 	frame.getContentPane().add(btnUserOptions);
 	
 	
@@ -77,8 +77,18 @@ public class AdminWindow {
 		   
 		}
 	});
-	btnOfficeOptions.setBounds(12, 87, 116, 25);
+	btnOfficeOptions.setBounds(12, 87, 135, 25);
 	frame.getContentPane().add(btnOfficeOptions);
+	
+	JButton btnNewButton = new JButton("Vacation Request");
+	btnNewButton.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    MessagesStored.main();
+		    frame.dispose();
+		}
+	});
+	btnNewButton.setBounds(12, 125, 135, 25);
+	frame.getContentPane().add(btnNewButton);
 	
 
     }
