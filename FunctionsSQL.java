@@ -67,6 +67,7 @@ public class FunctionsSQL {
 			if (!FunctionsSQL.IsAdmin()) {
 			    JOptionPane.showMessageDialog(null, "Your working office is:  " + office);
 			    JOptionPane.showMessageDialog(null, "People in this office are: ");
+			    myConn.close();
 
 			}
 
@@ -138,6 +139,7 @@ public class FunctionsSQL {
 		JOptionPane.showMessageDialog(null, "Corrects");
 		myStat.executeUpdate(String.format(ModifyUserQuery,BadgeID, WhatToModify, Modified));
 		JOptionPane.showMessageDialog(null, "Vai DB");
+		
 		return;
 	    }
 	}
