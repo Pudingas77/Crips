@@ -22,7 +22,8 @@ public class FunctionsSQL {
     static String DeleteOfficeQuery = "DELETE FROM offices WHERE  Code ='%s';";
     static String VacationRequestQuery = "INSERT INTO vacationmessagestore VALUES ('%s', '%s')";
     static String SelectAllFromRequest = "Select * from vacationmessagestore";
-//    static String ModifyUserQuery = "UPDATE `transactions`.`test` SET `%s` = '%s', WHERE `test`.`BadgeID` =`%s`;'";
+    // static String ModifyUserQuery = "UPDATE `transactions`.`test` SET `%s` =
+    // '%s', WHERE `test`.`BadgeID` =`%s`;'";
     static String SelectAllFromOffices = "SELECT * from offices";
     static String office;
 
@@ -74,7 +75,6 @@ public class FunctionsSQL {
 			if (!FunctionsSQL.IsAdmin()) {
 			    JOptionPane.showMessageDialog(null, "Your working office is:  " + office);
 			    JOptionPane.showMessageDialog(null, "People in this office are: ");
-			    
 
 			}
 
@@ -88,8 +88,8 @@ public class FunctionsSQL {
 		}
 
 	    }
-	    
-	   ResultSet myRs2 = myStat.executeQuery("select * from test");
+
+	    ResultSet myRs2 = myStat.executeQuery("select * from test");
 
 	    while (myRs2.next()) {
 
@@ -97,10 +97,10 @@ public class FunctionsSQL {
 
 		    JOptionPane.showMessageDialog(null,
 			    (myRs2.getString("Name") + " " + (myRs2.getString("LastName"))));
-		    
+
 		}
 	    }
-	    
+
 	    if (BadgeIDcorrect == false) {
 		JOptionPane.showMessageDialog(null, "BadgeID or Password Incorrect", "Login Error",
 			JOptionPane.ERROR_MESSAGE);
@@ -111,7 +111,7 @@ public class FunctionsSQL {
 	    exc.printStackTrace();
 	}
 	return true;
-	
+
     }
 
     // DATABASE EXIST CHECKER
@@ -132,32 +132,51 @@ public class FunctionsSQL {
 	}
 	return false;
     }
-//MODIFYYYYYYYYYYYYYYYY
-    public static void ModifyUser(String BadgeID, String WhatToModify, String Modified) {
-	    String ModifyUserQuery = "update users set num_points = ? where first_name = ?";
+
+    // Modifyierrrrr
+    public static void Modify(String BadgeID, String Name, String LastName, String OfficeID) {
+
 	try {
+	    String query = "Update test set  Name='" + Name + "',Lastname='" + LastName + "', OfficeID='" + OfficeID
+		    + "' where BadgeID = '" + BadgeID + "' ";
 	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
-	    Statement myStat = myConn.prepareStatement("Update test SET Office = ? WHERE BadgeID = ?");
+	    Statement myStat = myConn.createStatement();
 	    ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
-	   
-	   
-
-	    if (ExistsInDB(SelectAllFromTest, "BadgeID", BadgeID)) {
-		JOptionPane.showMessageDialog(null, "Corrects");
-		if(myStat.executeUpdate(String.format(ModifyUserQuery,BadgeID, WhatToModify, Modified ))==1);
-		JOptionPane.showMessageDialog(null, "Corrects");
-		myStat.executeUpdate(String.format(ModifyUserQuery,BadgeID, WhatToModify, Modified));
-		JOptionPane.showMessageDialog(null, "Vai DB");
-		
-		return;
+	    while (myRs.next()) {
+		if (myRs.getString("BadgeID").equals(BadgeID)) {
+		    myStat.execute(query);
+		    JOptionPane.showMessageDialog(null, "Update Succesfull");
+		    myConn.close();
+		}
 	    }
-	}
 
-	catch (Exception exc) {
+	} catch (Exception exc) {
 	    exc.printStackTrace();
 	}
 
-	return;
+    }
+
+    public static void NewPassword(String BadgeID, String Password, String Password1) {
+
+	try {
+	    String query = "Update test set  Password='" + Password + "' where BadgeID = '" + BadgeID + "' ";
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
+	    while (myRs.next()) {
+		if (Password == Password1) {
+		    if (myRs.getString("BadgeID").equals(BadgeID)) {
+			myStat.execute(query);
+			JOptionPane.showMessageDialog(null, "Update Succesfull");
+			myConn.close();
+			return;
+		    }
+		}
+	    }
+	    JOptionPane.showMessageDialog(null, "BadgeID not Found!");
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
 
     }
 
@@ -177,10 +196,11 @@ public class FunctionsSQL {
 
 		} else {
 
-		    if (ExistsInDB(SelectAllFromOffices, "ID", Office) || Office.isEmpty()) {
-			if (myStat.executeUpdate(String.format(CreateUserQuery, ID, Office, Name, LastName, Password)) == 1) {
+		    if (ExistsInDB(SelectAllFromOffices, "Code", Office) || Office.isEmpty()) {
+			if (myStat.executeUpdate(
+				String.format(CreateUserQuery, ID, Office, Name, LastName, Password)) == 1) {
 			    JOptionPane.showMessageDialog(null,
-				    "Successfuly Created User '" + Name + LastName + "' (" + ID + ")");
+				    "Successfuly Created User '" + Name + " " + LastName + "' (" + ID + ")");
 			    return true;
 			}
 
@@ -200,82 +220,98 @@ public class FunctionsSQL {
 	}
 	return false;
     }
+
+    public static void EmployersData(JTable table) {
+
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+
+	    Statement myStat = myConn.createStatement();
+	    String query = "Select BadgeID, OfficeID, Name, LastName from test";
+	    PreparedStatement pst = myConn.prepareStatement(query);
+	    ResultSet rs = pst.executeQuery();
+	    table.setModel(DbUtils.resultSetToTableModel(rs));
+
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+
+    }
+
     // Office Register
     public static boolean RegisterOffice(String Office) {
-   	try {
-   	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
-   	    Statement myStat = myConn.createStatement();
-   	    ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
 
-   	    while (myRs.next()) {
+	    while (myRs.next()) {
 
-   		if (ExistsInDB(SelectAllFromOffices, "Name Office", Office) || Office.isEmpty()) {
-   		    JOptionPane.showMessageDialog(null,
-   			    "That Office already exists in DB! or is empty");
-   		    return false;
+		if (ExistsInDB(SelectAllFromOffices, "Name Office", Office) || Office.isEmpty()) {
+		    JOptionPane.showMessageDialog(null, "That Office already exists in DB! or is empty");
+		    return false;
 
-   		} else {
+		} else {
 
-   		   
-   			if (myStat.executeUpdate(String.format(RegisterOfficeQuery, Office)) == 1) {
-   			    JOptionPane.showMessageDialog(null,
-   				    "New Office Created with the name" + Office);
-   			    return true;
-   			}
+		    if (myStat.executeUpdate(String.format(RegisterOfficeQuery, Office)) == 1) {
+			JOptionPane.showMessageDialog(null, "New Office Created with the name" + Office);
+			return true;
+		    }
 
-   			JOptionPane.showMessageDialog(null, "Failed to create new Office! Please retry");
+		    JOptionPane.showMessageDialog(null, "Failed to create new Office! Please retry");
 
-   			return false;
-   		    
+		    return false;
 
-   		}
-   	    }
-   	} catch (Exception exc) {
-   	    exc.printStackTrace();
-   	}
-   	return false;
-       }
+		}
+	    }
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+	return false;
+    }
+
     public static void DeleteOffice(String OfficeID) {
 
-   	try {
-   	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
 
-   	    Statement myStat = myConn.createStatement();
-   	    System.out.println((String.format(DeleteOfficeQuery, OfficeID)));
-   	    if (myStat.executeUpdate(String.format(DeleteOfficeQuery, OfficeID)) == 1) {
-   		JOptionPane.showMessageDialog(null, "Successfuly Deleted Office with Office ID "  + OfficeID );
+	    Statement myStat = myConn.createStatement();
+	    System.out.println((String.format(DeleteOfficeQuery, OfficeID)));
+	    if (myStat.executeUpdate(String.format(DeleteOfficeQuery, OfficeID)) == 1) {
+		JOptionPane.showMessageDialog(null, "Successfuly Deleted Office with Office ID " + OfficeID);
 
-   	    } else {
-   		JOptionPane.showMessageDialog(null, String.format("Couldnt find Office with OfficeID(%s)", OfficeID));
-   		return;
-   	    }
+	    } else {
+		JOptionPane.showMessageDialog(null, String.format("Couldnt find Office with OfficeID(%s)", OfficeID));
+		return;
+	    }
 
-   	} catch (Exception exc) {
-   	    exc.printStackTrace();
-   	}
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
 
-       }
-    //See stored MessagesVacation!
+    }
+
+    // See stored MessagesVacation!
     public static void MessageStore(JTable table) {
 
-   	try {
-   	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
 
-   	    Statement myStat = myConn.createStatement();
-   	 String query = "SELECT * from `vacationmessagestore`";
-   	 PreparedStatement pst = myConn.prepareStatement(query);
-   	 ResultSet rs = pst.executeQuery();
-   	 table.setModel(DbUtils.resultSetToTableModel(rs));
-   	 
+	    Statement myStat = myConn.createStatement();
+	    String query = "SELECT * from `vacationmessagestore`";
+	    PreparedStatement pst = myConn.prepareStatement(query);
+	    ResultSet rs = pst.executeQuery();
+	    table.setModel(DbUtils.resultSetToTableModel(rs));
 
-   	} catch (Exception exc) {
-   	    exc.printStackTrace();
-   	}
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
 
-       }
-    //Request Vacation BETA!!!! MEGA BETA!
+    }
+
+    // Request Vacation BETA!!!! MEGA BETA!
     public static void RequestVacation(String BadgeID, String Message) {
-	//BadgeID = Employee.getBadgeID();
+	// BadgeID = Employee.getBadgeID();
 	try {
 	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
 	    Statement myStat = myConn.createStatement();
@@ -284,28 +320,27 @@ public class FunctionsSQL {
 	    while (myRs.next()) {
 
 		if (ExistsInDB(SelectAllFromRequest, "BadgeID", BadgeID) || BadgeID.isEmpty()) {
-		    JOptionPane.showMessageDialog(null,
-			    "You Already Requested Vacation wait for HeadOffice Aprovval");
-		    		return;
+		    JOptionPane.showMessageDialog(null, "You Already Requested Vacation wait for HeadOffice Aprovval");
+		    return;
 
 		} else {
 
-		    //Insert If To check if vacation days are valid;
+		    // Insert If To check if vacation days are valid;
 		    if (myStat.executeUpdate(String.format(VacationRequestQuery, BadgeID)) == 1)
-			JOptionPane.showMessageDialog(null, "Request sent wait for HeadOffice for Aprovval"+ "\n" + "Message");
-			    
-			}
+			JOptionPane.showMessageDialog(null,
+				"Request sent wait for HeadOffice for Aprovval" + "\n" + "Message");
 
-			JOptionPane.showMessageDialog(null, "Failed to create new user! Please retry");
+		}
 
-		    }
+		JOptionPane.showMessageDialog(null, "Failed to create new user! Please retry");
 
-		
-	    
+	    }
+
 	} catch (Exception exc) {
 	    exc.printStackTrace();
 	}
     }
+
     // Auxiliar Functions
     public static boolean IsAdmin() {
 	if (office.equals(Admin.AdminOffice)) {

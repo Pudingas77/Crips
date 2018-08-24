@@ -59,7 +59,7 @@ public class AdminWindow {
 	JButton btnUserOptions = new JButton("User Options");
 	btnUserOptions.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-		    UserOptions.main();
+		    UserOption.main();
 		    frame.dispose();
 		}
 	});
