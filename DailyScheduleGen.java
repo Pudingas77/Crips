@@ -44,8 +44,21 @@ public class DailyScheduleGen {
 		// OfficeImport();
 		// AddNewSchedule();
 		//DBReformat();
+		int XEmployees = 1;
+		int[] xarray = ReturnOfficesWithXEmployees(XEmployees);
+		
+		for (int k = 0; k < xarray.length; k++)
+		{
+			println(String.format("Office '%s' has %s employees", xarray[k], XEmployees));
+		}
+		
 
+		userInput("By order of the Jarl stop right there 15!");
+		
+	}
 
+	public static void BackupFunc() {
+		
 		try {
 			myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
 			myStat = myConn.createStatement();
@@ -65,9 +78,9 @@ public class DailyScheduleGen {
 		} catch (Exception exc) {
 			exc.printStackTrace();
 		}
-	}
-
-	public static void BackupFunc() {
+		
+		//////////////////////////////////
+		
 		String days = userInput(String.format("Please insert %s(%s) Holydays:", MonthName(0), 0));
 		String[] holydays = days.split(",");
 
@@ -125,6 +138,69 @@ public class DailyScheduleGen {
 
 	public static String ReturnTimeFormatted(String Time) {
 		return Time.concat(":00");
+	}
+	
+	public static int[] ReturnOfficesWithXEmployees (int employeeCount) {
+		try {
+			myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+			myStat = myConn.createStatement();
+			
+			ResultSet myRs = myStat.executeQuery(String.format("SELECT * FROM offices;", 1));
+			
+			int OfficeRowCount = 0;
+			if (myRs.next()) {
+				OfficeRowCount++;
+			}
+			// Check offices OBOE
+			// Check offices OBOE
+			// Check offices OBOE
+			int[] Offices = new int[OfficeRowCount]; 
+			int[] OfficeEmployees = new int[OfficeRowCount];
+			ResultSet myRs0 = myStat.executeQuery(String.format("SELECT * FROM offices;", 1));
+			// Recicling variables
+			OfficeRowCount = 0;
+			
+			if (myRs0.next()) {
+				Offices[OfficeRowCount] = myRs0.getInt("Code");
+				OfficeRowCount++;	
+			}
+			
+			
+			for (int i = 0; i < Offices.length; i++)
+			{
+				ResultSet myRs1 = myStat.executeQuery(String.format("SELECT * FROM test WHERE OfficeID = '%s';", Offices[i]));
+				
+				if (myRs1.next()) {
+					OfficeEmployees[i]++;
+				}
+			}
+			
+			
+			
+			// FIND HOW MANY OFFICES HAVE X EMPLOYEES
+			int OfficesWithX = 0;
+			for (int x = 0; x < Offices.length; x++)
+			{
+				if (OfficeEmployees[x] == employeeCount) {
+					OfficesWithX++;
+				}
+			}
+			
+			int[] OfficesWithXEmployees = new int[OfficesWithX];
+			int OfficesWithXEmployeesPointer = 0;
+			for (int z = 0; z < Offices.length; z++)
+			{
+				if (OfficeEmployees[z] == employeeCount) {
+					OfficesWithXEmployees[OfficesWithXEmployeesPointer] = Offices[z];
+					OfficesWithXEmployeesPointer++;
+				}
+			}
+			return OfficesWithXEmployees;
+			
+		} catch (Exception exc) {
+			exc.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static void AssignToCalendar (String Time, String Text) {
