@@ -9,6 +9,9 @@ public class Employee {
 	OfficeID1 = OfficeID;
 
     }
+    public void Shifts(){
+	
+    }
     
 
     public static String getBadgeID() {
