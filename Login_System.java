@@ -86,7 +86,7 @@ public class Login_System {
 			AdminWindow.main();
 			frame.dispose();
 		    } else {
-			Employee.Employe(BadgeID, Password);
+			//Employee.Employe(BadgeID, Password);
 			EmployeeWindow.main();
 			frame.dispose();
 		    }

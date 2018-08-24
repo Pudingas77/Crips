@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import java.awt.Button;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EmployeeWindow {
 
@@ -52,6 +54,11 @@ public class EmployeeWindow {
 	lblEmployee.setText(Employee.getBadgeID());
 
 	JButton btnSeeShifts = new JButton("See Shifts");
+	btnSeeShifts.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+		    Employee.Shifts();
+		}
+	});
 	btnSeeShifts.setBounds(12, 54, 97, 25);
 	frame.getContentPane().add(btnSeeShifts);
 

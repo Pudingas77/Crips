@@ -309,6 +309,24 @@ public class FunctionsSQL {
 
     }
 
+    public static int OfficeID(String BadgeID) {
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
+	    int OfficeID;
+	    while (myRs.next()) {
+		if (ExistsInDB(SelectAllFromTest, "BadgeID", BadgeID)) {
+		    OfficeID=myRs.getInt("OfficeID");
+		    return OfficeID;
+		}
+	    }
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+	return 0;
+    }
+
     // Request Vacation BETA!!!! MEGA BETA!
     public static void RequestVacation(String BadgeID, String Message) {
 	// BadgeID = Employee.getBadgeID();

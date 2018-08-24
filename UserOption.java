@@ -54,7 +54,7 @@ public class UserOption {
 	frame.setBounds(100, 100, 650, 570);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.getContentPane().setLayout(null);
-
+	
 	JButton btnLoadEmployers = new JButton("Load Employers");
 	btnLoadEmployers.addActionListener(new ActionListener() {
 	    public void actionPerformed(ActionEvent arg0) {
