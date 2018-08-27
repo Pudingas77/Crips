@@ -8,14 +8,18 @@ public class Employee {
     
     public static void Employe(String BadgeID) {
 	BadgeID1 = BadgeID;
-	OfficeID1 = FunctionsSQL.OfficeID(BadgeID);
+	
 
     }
    static int [] ze = {20,21}; 
+   
     public static void Shifts(){
-	for(int counter = 0; counter < ze.length;){
-	    if(ze[counter]==OfficeID1){
-		JOptionPane.showMessageDialog(null, "OfficeID: "+ OfficeID1);
+	for(int counter = 0; counter < 2;){
+	    OfficeID1=FunctionsSQL.OfficeID(BadgeID1);
+	    
+	   if(ze[counter]==(OfficeID1)){
+	       FunctionsSQL.Shifts(2, OfficeID1);
+		
 	    }
 	    counter++;
 	    

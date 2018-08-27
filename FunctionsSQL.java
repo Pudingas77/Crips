@@ -1,5 +1,6 @@
 package Crips;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -22,9 +23,9 @@ public class FunctionsSQL {
     static String DeleteOfficeQuery = "DELETE FROM offices WHERE  Code ='%s';";
     static String VacationRequestQuery = "INSERT INTO vacationmessagestore VALUES ('%s', '%s')";
     static String SelectAllFromRequest = "Select * from vacationmessagestore";
-    // static String ModifyUserQuery = "UPDATE `transactions`.`test` SET `%s` =
-    // '%s', WHERE `test`.`BadgeID` =`%s`;'";
+    static String CountOffice = "SELECT COUNT(OfficeID) FROM test WHERE `OfficeID`='%s';";
     static String SelectAllFromOffices = "SELECT * from offices";
+    static String SelectAllFromShift = "Select * from folha1";
     static String office;
 
     // ADMINS ONLY
@@ -270,13 +271,13 @@ public class FunctionsSQL {
 	return false;
     }
 
+    // Office Delete
     public static void DeleteOffice(String OfficeID) {
 
 	try {
 	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
 
 	    Statement myStat = myConn.createStatement();
-	    System.out.println((String.format(DeleteOfficeQuery, OfficeID)));
 	    if (myStat.executeUpdate(String.format(DeleteOfficeQuery, OfficeID)) == 1) {
 		JOptionPane.showMessageDialog(null, "Successfuly Deleted Office with Office ID " + OfficeID);
 
@@ -309,22 +310,97 @@ public class FunctionsSQL {
 
     }
 
+    // OFfice counting 1,2,3
+    public static void OfficeSeparate() {
+	int array[] = new int[500];
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(SelectAllFromOffices);
+	    int OfficeID;
+
+	    while (myRs.next()) {
+		OfficeID = myRs.getInt("Code");
+		for (int index = 0; index < array.length; index++) {
+		    if (index == OfficeID) {
+			array[index] = OfficeCount(OfficeID);
+		    }
+		}
+
+	    }
+
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+
+	// return array;
+
+    }
+
+    // Office usage COunt
+    public static int OfficeCount(int OfficeID) {
+	int please = 0;
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(String.format(CountOffice, OfficeID));
+
+	    while (myRs.next()) {
+		please = myRs.getInt(1);
+
+	    }
+
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+
+	return please;
+    }
+
+    // See office id
     public static int OfficeID(String BadgeID) {
 	try {
 	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
 	    Statement myStat = myConn.createStatement();
 	    ResultSet myRs = myStat.executeQuery(SelectAllFromTest);
-	    int OfficeID;
+	    int OfficeID1 = 0;
+
 	    while (myRs.next()) {
-		if (ExistsInDB(SelectAllFromTest, "BadgeID", BadgeID)) {
-		    OfficeID=myRs.getInt("OfficeID");
-		    return OfficeID;
+		if (ExistsInDB(SelectAllFromTest, "BadgeID", BadgeID) || BadgeID.isEmpty()) {
+		    OfficeID1 = myRs.getInt("OfficeID");
 		}
+		return OfficeID1;
 	    }
 	} catch (Exception exc) {
 	    exc.printStackTrace();
 	}
 	return 0;
+    }
+
+    // Get Workday
+    public static void Shifts(int Workday, int OfficeID) {
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(SelectAllFromShift);
+	    String Shift;
+
+	    while (myRs.next()) {
+		if (ExistsInDB(SelectAllFromShift, "OfficeID", Integer.toString(OfficeID))) {
+		    if (Workday == 2 || Workday == 3 || Workday == 4 || Workday == 5 || Workday == 6) {
+			Shift = myRs.getString("L-V");
+			JOptionPane.showMessageDialog(null, "VA LA PFf" + Shift);
+			return;
+		    }
+		}
+	    }
+	    JOptionPane.showMessageDialog(null, "Wow");
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+	return;
     }
 
     // Request Vacation BETA!!!! MEGA BETA!
