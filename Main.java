@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
 	FunctionsSQL.OfficeSeparate();
-	//Login_System.main();
+	Login_System.main();
 	
     }
 

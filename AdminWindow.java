@@ -80,7 +80,7 @@ public class AdminWindow {
 	btnOfficeOptions.setBounds(12, 87, 135, 25);
 	frame.getContentPane().add(btnOfficeOptions);
 	
-	JButton btnNewButton = new JButton("Vacation Request");
+	JButton btnNewButton = new JButton("Vacation Requests");
 	btnNewButton.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
 		    MessagesStored.main();

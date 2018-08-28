@@ -4,6 +4,8 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
+import java.time.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -46,7 +48,11 @@ public class DailyScheduleGen {
 		//DBReformat();
 		int XEmployees = 1;
 		int[] xarray = ReturnOfficesWithXEmployees(XEmployees);
-		
+		//TRYOUTTTSSS
+		Date date = new Date();
+		LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		int month = localDate.getMonthValue();
+		System.out.println(month);
 		for (int k = 0; k < xarray.length; k++)
 		{
 			println(String.format("Office '%s' has %s employees", xarray[k], XEmployees));
@@ -312,6 +318,7 @@ public class DailyScheduleGen {
 
 		AddNewSchedule();
 	}
+	
 
 	public static void OfficeImport() {
 		// THIS FUNCTION DOESNT CHECK EXISTANCE
