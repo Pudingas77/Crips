@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
@@ -271,6 +273,60 @@ public class FunctionsSQL {
 	return false;
     }
 
+    // Office exists
+    public static boolean OfficeExist(String OfficeID) {
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(SelectAllFromOffices);
+	    while (myRs.next()) {
+
+		if (ExistsInDB(SelectAllFromOffices, "Code", OfficeID)) {
+
+		    return true;
+		}
+	    }
+	    return false;
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+	return false;
+    }
+
+    // Compare TillNumber
+    public static boolean TillNumber(String OfficeID, String Till1, JFrame frame) {
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	    Statement myStat = myConn.createStatement();
+	    ResultSet myRs = myStat.executeQuery(SelectAllFromOffices);
+	    while (myRs.next()) {
+
+		if (ExistsInDB(SelectAllFromOffices, "Code", OfficeID)) {
+		    if (myRs.getInt("Till") == Integer.parseInt(Till1)) {
+			
+			JOptionPane.showMessageDialog(frame, "Now choose the first Opperator");
+			return true;
+		    } else {
+			int confirmed = JOptionPane.showConfirmDialog(frame,
+				"The number of Till you input is different from the office real number, you want to continue?",
+				"Till", JOptionPane.YES_NO_OPTION);
+			if (confirmed == JOptionPane.YES_OPTION) {
+			    JOptionPane.showMessageDialog(frame, "Now choose the first Opperator");
+			    return true;
+			}
+			return false;
+		    }
+		} else {
+		    JOptionPane.showMessageDialog(frame, "OfficeID doesn't exist");
+		}
+	    }
+	    return false;
+	} catch (Exception exc) {
+	    exc.printStackTrace();
+	}
+	return false;
+    }
+
     // Office Delete
     public static void DeleteOffice(String OfficeID) {
 
@@ -442,6 +498,21 @@ public class FunctionsSQL {
 	}
 	return false;
 
+    }
+
+    public static void fillComboBox(String OfficeID1, JComboBox Combobox) {
+
+	try {
+	    Connection myConn = DriverManager.getConnection(dbc, dbc_user, dbc_password);
+	    String query = "SELECT * FROM test WHERE OfficeID ='%s';";
+	    Statement myStat = myConn.createStatement();
+	    ResultSet rs = myStat.executeQuery(String.format(query, OfficeID1));
+	    while (rs.next()) {
+		Combobox.addItem(rs.getString("BadgeID"));
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
     }
 
     public static String getDbc() {
